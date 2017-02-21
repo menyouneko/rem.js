@@ -1,18 +1,18 @@
 #移动端WEB开发适配解决方案
-
 >做移动端开发时，通常是得到设计稿后，要经过各种换算得出像素值，再应用在css上；
 同时也因为移动端存在各种屏幕尺寸，如何适配各种屏幕尺寸和完美还原设计稿就成了一个大问题。
 这个方案是通过动态计算得出一个font-size的值，然后应用于根元素上，子元素使用rem单位做布局。
 这样的优势是能适配各种各样不同尺寸的屏幕，同时根据设置的设计稿宽度，做到任何尺寸的设计稿都能完美适配。
 当然也有个缺点，那就是字体不能直接使用rem，字体像素值需要乘以当前屏幕的dpr才是正常的尺寸，建议用sass或者less添加一些预处理。
 参考了hotcss和手淘flexiable，做了一些修改，用了es6的写法，添加可自定义转换系数等。
-（目前当转换系数为10时，iphone6 下有bug，待严阵）
+（目前当转换系数为10时，iphone6 下有bug，待验证）
+
 
 
 ##如何使用
-1. 设置meta
-design-width - 设计稿宽度，默认750
-max-width - 在非移动端时页面的最大宽度，默认500
+1. 设置meta</br>
+design-width - 设计稿宽度，默认750</br>
+max-width - 在非移动端时页面的最大宽度，默认500</br>
 ratio - 转换系数，默认100
 ```
 <meta name="rem-setting" content="design-width = 750,max-width = 500,ratio = 100">
@@ -40,9 +40,9 @@ height: 1rem; // 100 / 100 = 1 => 1rem
 
 ##主要思路
 首先了解以下的值：
-视口宽度 **clientWidth**（例如iphone 6屏幕的宽度为375px，iphone 6p屏幕的宽度为414px）；
-设计稿宽度大小 **designWidth**（一般为750px）；
-转换系数 **ratio**（ratio表示将设计稿的px单位除以ratio，得出的值直接用于rem即可）；
+视口宽度 **clientWidth**（例如iphone 6屏幕的宽度为375px，iphone 6p屏幕的宽度为414px）；</br>
+设计稿宽度大小 **designWidth**（一般为750px）；</br>
+转换系数 **ratio**（ratio表示将设计稿的px单位除以ratio，得出的值直接用于rem即可）；</br>
 设备像素比 **dpr**（iphone 6为2，iphone 6p为3）。</br>
 我们要实现的是将设计稿适配到各种尺寸的屏幕中，可以将rem理解成一个动态参数，
 （**设计稿的像素数据** / **转换系数**） * **rem的具体值** = **当前屏幕下应该显示的尺寸**，
@@ -72,10 +72,10 @@ rem.js执行完后会提供一个全局变量rem，可以通过window.rem访问�
 * @param  {number|String} [需要转换的值]
 * @return {String} [返回转换后的结果]
 */
-rem.px2rem(20); // return '0.02rem'
-rem.px2rem('100px'); // return '1rem'
-rem.rem2px(1); // return '100px'
-rem.rem2px('2rem'); // retuen '200px'
+rem.px2rem(20); // '0.02rem'
+rem.px2rem('100px'); // '1rem'
+rem.rem2px(1); // '100px'
+rem.rem2px('2rem'); // '200px'
 ```
 <small>注：这里返回的数值会因设计稿大小，屏幕宽度和换算比例变化而变化，这里仅作示范用。</small>
 

@@ -3,7 +3,11 @@
  * @E-mail: sheep_zh@163.com
  * @Date:   2017-02-18 15:41:40
  * @Last Modified by:   ChiHo-Ng
- * @Last Modified time: 2017-02-20 15:55:32
+<<<<<<< HEAD
+ * @Last Modified time: 2017-07-05 17:47:27
+=======
+ * @Last Modified time: 2017-02-21 15:35:41
+>>>>>>> 5a0cda4... add comment
  */
 (function (window) {
   'use strict';
@@ -53,7 +57,6 @@
       let { designWidth = 750, ratio = 100, maxWidth = 500, dpr = 1 } = option
       // 判断当前宽度是否比设置的max-width大，是则使用设置的maxWidth，否则使用当前的clientWidth
       clientWidth = clientWidth > maxWidth * dpr ? maxWidth * dpr : clientWidth;
-      console.log(clientWidth, dpr, ratio, clientWidth * ratio / designWidth);
       document.documentElement.setAttribute('data-dpr', dpr);
       document.documentElement.style.fontSize = clientWidth * ratio / designWidth + 'px';
     }
@@ -80,7 +83,11 @@
     // 事件绑定
     // 缩放时重新设置font-size
     window.addEventListener('resize', function () {
-      setFontSize(remSetting);
+      clearTimeout(window.rem.tId);
+      // 函数节流
+      window.rem.tId = setTimeout(function () {
+        setFontSize(remSetting);
+      }, 100);
     }, false);
     // 返回两个转换方法接口
     return {
