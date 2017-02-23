@@ -14,6 +14,7 @@
 design-width - 设计稿宽度，默认750</br>
 max-width - 在非移动端时页面的最大宽度，默认500</br>
 ratio - 转换系数，默认100
+dpr - 屏幕像素比，设置了该项时，dpr会固定为设置的值
 ```
 <meta name="rem-setting" content="design-width = 750,max-width = 500,ratio = 100">
 ```
@@ -37,6 +38,11 @@ width: 3rem; // 300 / 100 = 3 => 3rem
 height: 1rem; // 100 / 100 = 1 => 1rem
 }
 ```
+
+4. 字体值相关
+需要注意的是，如果dpr是1的时候，可以正常使用px当字体值；
+但是如果dpr是1以上时，字体值 × dpr才是正确的值，可以使用less或sass做预处理；
+当然也可以设置固定的dpr = 1，这样在任何屏幕下字体值都可以使用px单位了。
 
 ##主要思路
 首先了解以下的值：

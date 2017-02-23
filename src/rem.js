@@ -3,11 +3,7 @@
  * @E-mail: sheep_zh@163.com
  * @Date:   2017-02-18 15:41:40
  * @Last Modified by:   ChiHo-Ng
-<<<<<<< HEAD
- * @Last Modified time: 2017-07-05 17:47:27
-=======
- * @Last Modified time: 2017-02-21 15:35:41
->>>>>>> 5a0cda4... add comment
+ * @Last Modified time: 2017-07-05 17:50:57
  */
 (function (window) {
   'use strict';
@@ -18,7 +14,7 @@
       // 解析content，返回一个Object
       let obj = {};
       remContent.split(',').map((item) => {
-        let arr = item.split('=').map((item) => item.replace(/^\s+|\s+$/, ''));
+        let arr = item.split('=').map((item) => item.replace(/^\s+|\s+$/g, ''));
         arr[0] = arr[0].replace(/\-+(\w{1})/, (item, $1) => {
           return $1.toUpperCase();
         });
@@ -30,7 +26,7 @@
 
     function setViewport(option) {
       let viewport = document.querySelector('meta[name = "viewport"]');
-      let { dpr = 1 } = option;
+      let { dpr = 1 } = option; // 默认dpr = 1
       let content = 'width=device-width, initial-scale=' + 1 / dpr + ', minimum-scale=' + 1 / dpr + ', maximum-scale=' + 1 / dpr + ', user-scalable=no';
       if (viewport) {
         viewport.setAttribute('content', content);
@@ -54,7 +50,7 @@
       // 获取视口宽度
       // 此处获得的clientWidth是计算了dpr后的值，所以无需再与dpr相乘
       let clientWidth = document.documentElement.clientWidth || window.clientWidth;
-      let { designWidth = 750, ratio = 100, maxWidth = 500, dpr = 1 } = option
+      let { designWidth = 750, ratio = 100, maxWidth = 500, dpr = 1 } = option; // 默认值
       // 判断当前宽度是否比设置的max-width大，是则使用设置的maxWidth，否则使用当前的clientWidth
       clientWidth = clientWidth > maxWidth * dpr ? maxWidth * dpr : clientWidth;
       document.documentElement.setAttribute('data-dpr', dpr);
@@ -75,7 +71,7 @@
     // 获取自定义的rem meta标签
     let remEl = document.querySelector('meta[name = "rem-setting"');
     let remSetting = remEl && parseRem(remEl);
-    remSetting.dpr = window.devicePixelRatio || 1;
+    remSetting.dpr = remSetting.dpr || window.devicePixelRatio || 1; // 若自定义了dpr，就用自定义的值，否则用屏幕的dpr值
     // 设置viewport
     setViewport(remSetting);
     // 设置root font-size
