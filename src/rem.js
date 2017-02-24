@@ -3,7 +3,7 @@
  * @E-mail: sheep_zh@163.com
  * @Date:   2017-02-18 15:41:40
  * @Last Modified by:   ChiHo-Ng
- * @Last Modified time: 2017-07-05 17:52:08
+ * @Last Modified time: 2017-07-05 17:54:52
  */
 (function (window) {
   var rem = (function () {
@@ -94,6 +94,6 @@
       rem2px: px2rem
     }
   })();
-  // 复制给全局变量
+  // 暴露给全局变量
   window.rem = rem;
 })(window);
