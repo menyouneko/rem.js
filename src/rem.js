@@ -3,7 +3,7 @@
  * @E-mail: sheep_zh@163.com
  * @Date:   2017-02-18 15:41:40
  * @Last Modified by:   ChiHo-Ng
- * @Last Modified time: 2017-07-05 17:54:52
+ * @Last Modified time: 2017-07-05 17:55:47
  */
 (function (window) {
   var rem = (function () {
@@ -26,7 +26,7 @@
     }
 
     function setViewport(option) {
-      var viewport = document.querySelector('meta[name = "viewport"]');
+      var viewport = document.querySelector('meta[name="viewport"]');
       var dpr = option.dpr || 1; // 默认dpr = 1
       var content = 'width=device-width, initial-scale=' + 1 / dpr + ', minimum-scale=' + 1 / dpr + ', maximum-scale=' + 1 / dpr + ', user-scalable=no';
       if (viewport) {
@@ -74,7 +74,7 @@
     }
 
     // 获取自定义的rem meta标签
-    var remEl = document.querySelector('meta[name = "rem-setting"');
+    var remEl = document.querySelector('meta[name="rem-setting"]');
     var remSetting = remEl && parseRem(remEl);
     remSetting.dpr = remSetting.dpr || window.devicePixelRatio || 1; // 若自定义了dpr，就用自定义的值，否则用屏幕的dpr值
     setViewport(remSetting);
