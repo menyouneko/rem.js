@@ -1,15 +1,22 @@
-/*
+/**
  * @Author: ChiHoNg - A Rookie FE
  * @E-mail: sheep_zh@163.com
  * @Date:   2017-02-18 15:41:40
  * @Last Modified by:   ChiHo-Ng
- * @Last Modified time: 2017-07-05 17:55:47
+ * @Last Modified time: 2017-07-05 17:59:15
  */
 (function (window) {
   var rem = (function () {
-    function parseRem(remObj) {
+    /**
+     * @param  {Node} remEl
+     * @return {Object}
+     * @example
+     * parseRem(document.querySelector('meta[name="rem-setting"]'))
+     * // => {designWidth: "750", maxWidth: "500", ratio: "2", dpr: "1"}
+     */
+    function parseRem(remEl) {
       // 获取content内容
-      var remContent = remObj.getAttribute('content');
+      var remContent = remEl.getAttribute('content');
       // 解析content，返回一个Object
       var obj = {};
       remContent.split(',').map(function (item) {
@@ -38,18 +45,19 @@
         document.head.appendChild(viewport);
       }
     }
-
+    /**
+     * 视口宽度 clientWidth
+     * 设计稿 designWidth
+     * 转换系数 ratio（ratio表示将设计稿的px单位除以ratio，得出的值直接用于rem即可）
+     * 设备像素比 dpr
+     * 根字体大小rem
+     * 主要公式为，clientWidth * dpr = (designWidth / ratio) * rem
+     * 得出rem = (clientWidth * dpr * ratio) / designWidth
+     * 根据以上公式就可以计算出rem应为多少
+     * 获取视口宽度
+     * 此处获得的clientWidth是计算了dpr后的值，所以无需再与dpr相乘
+     */
     function setFontSize(option) {
-      // 视口宽度 clientWidth
-      // 设计稿 designWidth
-      // 转换系数 ratio（ratio表示将设计稿的px单位除以ratio，得出的值直接用于rem即可）
-      // 设备像素比 dpr
-      // 根字体大小rem
-      // 主要公式为，clientWidth * dpr = (designWidth / ratio) * rem
-      // 得出rem = (clientWidth * dpr * ratio) / designWidth
-      // 根据以上公式就可以计算出rem应为多少
-      // 获取视口宽度
-      // 此处获得的clientWidth是计算了dpr后的值，所以无需再与dpr相乘
       var clientWidth = document.documentElement.clientWidth || window.clientWidth;
       var designWidth = option.designWidth || 750;
       var ratio = option.ratio || 100;
