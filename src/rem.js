@@ -3,7 +3,7 @@
  * @E-mail: sheep_zh@163.com
  * @Date:   2017-02-18 15:41:40
  * @Last Modified by:   ChiHo-Ng
- * @Last Modified time: 2017-07-05 18:00:25
+ * @Last Modified time: 2017-07-05 18:01:27
  */
 (function (window) {
   'use strict';
@@ -12,7 +12,6 @@
      * 传入meta节点,解析meta节点的内容,返回一个解析后的对象
      * @param  {Node} remEl 
      * @return {Object}
-     *
      * @example
      * parseRem(document.querySelector('meta[name = "rem-setting"'))
      * return {designWidth: "750", maxWidth: "500", ratio: "2", dpr: "1"}
