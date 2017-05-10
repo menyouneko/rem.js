@@ -3,7 +3,7 @@
  * @E-mail: sheep_zh@163.com
  * @Date:   2017-02-18 15:41:40
  * @Last Modified by:   ChiHo-Ng
- * @Last Modified time: 2017-07-05 18:01:27
+ * @Last Modified time: 2017-07-05 18:02:53
  */
 (function (window) {
   'use strict';
@@ -91,9 +91,9 @@
       return rem * rootFontSize + 'px';
     }
 
-    let remEl = document.querySelector('meta[name = "rem-setting"'); // 获取自定义的rem meta标签
-    let remSetting = remEl && parseRem(remEl);
-    remSetting.dpr = remSetting.dpr || window.devicePixelRatio || 1; // 若自定义了dpr，就用自定义的值，否则用屏幕的dpr值
+    let remEl = document.querySelector('meta[name="rem-setting"]'); // 获取自定义的rem meta标签
+    let remSetting = (remEl && parseRem(remEl)) || {};
+    remSetting.dpr = remSetting.dpr ? remSetting.dpr : window.devicePixelRatio; // 若自定义了dpr，就用自定义的值，否则用屏幕的dpr值
 
     setViewport(remSetting); // 设置viewport
     setFontSize(remSetting); // 设置root font-size

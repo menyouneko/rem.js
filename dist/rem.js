@@ -5,7 +5,7 @@
  * @E-mail: sheep_zh@163.com
  * @Date:   2017-02-18 15:41:40
  * @Last Modified by:   ChiHo-Ng
- * @Last Modified time: 2017-04-14 11:46:10
+ * @Last Modified time: 2017-05-05 09:48:45
  */
 (function (window) {
   'use strict';
@@ -15,7 +15,6 @@
      * 传入meta节点,解析meta节点的内容,返回一个解析后的对象
      * @param  {Node} remEl 
      * @return {Object}
-     *
      * @example
      * parseRem(document.querySelector('meta[name = "rem-setting"'))
      * return {designWidth: "750", maxWidth: "500", ratio: "2", dpr: "1"}
@@ -106,9 +105,9 @@
       return rem * rootFontSize + 'px';
     }
 
-    var remEl = document.querySelector('meta[name = "rem-setting"'); // 获取自定义的rem meta标签
-    var remSetting = remEl && parseRem(remEl);
-    remSetting.dpr = remSetting.dpr || window.devicePixelRatio || 1; // 若自定义了dpr，就用自定义的值，否则用屏幕的dpr值
+    var remEl = document.querySelector('meta[name="rem-setting"]'); // 获取自定义的rem meta标签
+    var remSetting = remEl && parseRem(remEl) || {};
+    remSetting.dpr = remSetting.dpr ? remSetting.dpr : window.devicePixelRatio; // 若自定义了dpr，就用自定义的值，否则用屏幕的dpr值
 
     setViewport(remSetting); // 设置viewport
     setFontSize(remSetting); // 设置root font-size
