@@ -10,19 +10,29 @@
 
 
 ## 如何使用
-##### 1.设置meta
+##### 1.引入js
 ```
-<meta name="rem-setting" content="design-width = 750,max-width = 500,ratio = 100">
+<script src="dist/rem.min.js"></script>
+```
+##### 2.设置
+①、通过meta设置
+```
+<meta name="rem" content="design-width=750,max-width=500,ratio=100">
+```
+②、通过new设置
+```js
+// 方法一
+let rem = new Rem() // 使用默认配置
+// 方法二
+let rem = new Rem({
+  designWidth: 750,
+  maxWidth: 500
+})
 ```
 design-width - 设计稿宽度，默认750</br>
 max-width - 在非移动端时页面的最大宽度，默认500</br>
 ratio - 转换系数，默认100</br>
 dpr - 屏幕像素比，设置了该项时，dpr会固定为设置的值
-
-##### 2.引入js
-```
-<script src="src/rem.js"></script>
-```
 ##### 3.愉快的编写css</br>
 例如：假设设计稿宽度是750px，转换系数100。</br>
 设置body为750px（与设计稿同宽）
