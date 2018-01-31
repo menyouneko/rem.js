@@ -15,7 +15,6 @@
   },
   "scripts": {
     "dev": "rollup -w",
-    "build": "rollup -c",
-    "test": "mocha"
+    "build": "rollup -c"
   }
 }

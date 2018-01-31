@@ -4,7 +4,7 @@
  * @E-mail: sheep_zh@163.com 
  * @Date: 2017-10-30 19:24:17
  * @Last Modified by: ChiHo-Ng
- * @Last Modified time: 2018-01-31 11:24:03
+ * @Last Modified time: 2018-01-31 11:33:15
  */
 
 class Rem {
@@ -47,9 +47,12 @@ class Rem {
    * @return {Object} obj
    */
   metaParse () {
-    let el = document.querySelector('meta[name="rem"]')
-    let configArr = el.getAttribute('content').split(',')
     let obj = {}
+    let el = document.querySelector('meta[name="rem"]')
+    if (!el) {
+      return obj
+    }
+    let configArr = el.getAttribute('content').split(',')
     if (!configArr.length) {
       throw ('meta 标签设置错误.')
     }
