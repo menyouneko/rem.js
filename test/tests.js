@@ -19,7 +19,7 @@ describe('Effects', function () {
 })
 
 describe('Others', function () {
-  it('rem.config has config\'s property', function () {
+  it('rem.config has property designWidth', function () {
     expect(rem.config).to.have.property('designWidth')
   })
 })

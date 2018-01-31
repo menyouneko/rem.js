@@ -4,7 +4,7 @@
  * @E-mail: sheep_zh@163.com 
  * @Date: 2017-10-30 19:24:17
  * @Last Modified by: ChiHo-Ng
- * @Last Modified time: 2017-11-14 14:50:18
+ * @Last Modified time: 2018-01-31 11:24:03
  */
 
 class Rem {
@@ -18,16 +18,18 @@ class Rem {
         designWidth: 750,
         maxWidth: 500,
         ratio: 100,
-        dpr: 1
+        dpr: window.devicePixelRatio
       }
-      if (this.isMetaEl(arg)) { // 判断是否 meta 元素
-        this.config = Object.assign(defaultConfig, this.contentParse(arg)) // 是,则解析 meta 元素携带的数据
-      } else if (!arg || typeof arg === 'object') {
-        this.config = Object.assign(defaultConfig, arg) // 否,直接合并
+      if (arg && typeof arg === 'object') { // 判断参数是否存在
+        this.config = Object.assign(defaultConfig, arg) // 参数存在, 合并参数
+      } else if (!arg) {
+        this.config = Object.assign(defaultConfig, this.metaParse()) // 参数不存在, 则解析 meta 元素携带的数据
+      } else {
+        throw ('new Rem() 参数错误, 请检查.')
       }
-      this.setViewport(this.config) // 设置viewport
-      this.setFontSize(this.config) // 设置root font-size
-      window.addEventListener('resize', function () { // 事件绑定,缩放时重新设置font-size
+      this.setViewport(this.config) // 设置 viewport
+      this.setFontSize(this.config) // 设置 root font-size
+      window.addEventListener('resize', function () { // 事件绑定, 缩放时重新设置 font-size
         clearTimeout(self.tId)
         self.tId = setTimeout(function () { // 简易函数节流
           self.setFontSize(self.config)
@@ -39,19 +41,19 @@ class Rem {
     }
   }
 
-  isMetaEl (el) {
-    return el instanceof HTMLMetaElement
-  }
   /**
    * 接收一个 meta 元素作为参数, 返回解析后的对象
    * @param {HTMLMetaElement} contentEl 
    * @return {Object} obj
    */
-  contentParse (contentEl) {
-    let el = contentEl || document.querySelector('meta[name="rem"]')
-    let config = el.getAttribute('content')
+  metaParse () {
+    let el = document.querySelector('meta[name="rem"]')
+    let configArr = el.getAttribute('content').split(',')
     let obj = {}
-    config.split(',').map((item) => {
+    if (!configArr.length) {
+      throw ('meta 标签设置错误.')
+    }
+    configArr.map((item) => {
       let arr = item.split('=').map((item) => item.replace(/^\s+|\s+$/g, ''))
       arr[0] = arr[0].replace(/\-+(\w{1})/, (item, $1) => {
         return $1.toUpperCase()
