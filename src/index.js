@@ -4,7 +4,7 @@
  * @E-mail: sheep_zh@163.com 
  * @Date: 2017-10-30 19:24:17
  * @Last Modified by: ChiHo-Ng
- * @Last Modified time: 2018-01-31 11:33:15
+ * @Last Modified time: 2018-01-31 11:44:53
  */
 
 class Rem {
@@ -42,19 +42,19 @@ class Rem {
   }
 
   /**
-   * 接收一个 meta 元素作为参数, 返回解析后的对象
-   * @param {HTMLMetaElement} contentEl 
+   * 获取页面 meta 的元素, 返回解析后的对象
    * @return {Object} obj
    */
   metaParse () {
-    let obj = {}
-    let el = document.querySelector('meta[name="rem"]')
-    if (!el) {
+    let obj = {},
+      configArr = [],
+      el
+    try {
+      el = document.querySelector('meta[name="rem"]')
+      configArr = el.getAttribute('content').split(',')
+    } catch (error) {
+      console.warn('meta 标签设置错误')
       return obj
-    }
-    let configArr = el.getAttribute('content').split(',')
-    if (!configArr.length) {
-      throw ('meta 标签设置错误.')
     }
     configArr.map((item) => {
       let arr = item.split('=').map((item) => item.replace(/^\s+|\s+$/g, ''))
@@ -120,7 +120,7 @@ class Rem {
 
   /**
    * rem转换成px
-   * @param  {Number|String} px
+   * @param  {Number|String} rem
    * @return {String}
    */
   rem2px (rem) {
